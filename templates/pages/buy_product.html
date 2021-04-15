@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<h3 class="pt-5">პროდუქტის შეძენა</h3>
+				<p>თქვენი ანგარიშიდან ჩამოიჭრება - {{ product_price }} ლარი</p>
+				{% if error %}
+					<p style="color:red;">{{ error }}</p>
+				{% endif %}
+				<div class="row">
+					<div class="col m6 s12">
+						<form method="POST">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-primary">ყიდვა</button>
+						</form>
+					</div>
+					<div class="col m6 s12">
+						<a href="{% url 'home' %}" type="submit" class="btn btn-danger">გაუქმება</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+{% endblock %}

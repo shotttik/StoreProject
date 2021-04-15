@@ -1,7 +1,7 @@
+import datetime
 from datetime import timedelta
 
 from django.db import models
-from django.utils import timezone
 from django_editorjs_fields import EditorJsTextField
 
 from products.cover_choices import Cover
@@ -9,7 +9,7 @@ from products.cover_choices import Cover
 
 class Product(models.Model):
     name = models.CharField(verbose_name='პროდუქტის დასახელება', max_length=255)
-    alias = models.CharField(verbose_name='ალიასი', max_length=10)
+    alias = models.CharField(verbose_name='ალიასი', max_length=10, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     price = models.DecimalField(verbose_name='ფასი', help_text='ლარი', max_digits=5, decimal_places=2,  default=0)
     discount = models.DecimalField(verbose_name='ფასდაკლება', help_text='ლარი',
@@ -17,8 +17,9 @@ class Product(models.Model):
     savings = models.FloatField(verbose_name='დანაზოგი', help_text='%', default=0)
     quantity = models.IntegerField(verbose_name='აქციების რაოდენობა')
     start_date = models.DateField(verbose_name='აქცის დაწყების თარიღი', auto_now_add=True)
-    end_date = models.DateField(verbose_name='აქციის დასრულების თარიღი', default=timezone.now() + timedelta(days=12))
-    delivery = models.BooleanField(verbose_name='მიტანის სერვისი', default=False)
+    end_date = models.DateField(verbose_name='აქციის დასრულების თარიღი',
+                                default=datetime.datetime.today() + timedelta(days=12))
+    delivery = models.BooleanField(verbose_name='მიტანის სერვისი', default=False, blank=True)
     isbn = models.CharField(verbose_name='ISBN კოდი', max_length=13)
     cashback = models.FloatField(verbose_name='ქეშბექი', help_text='%', default=0)
     cover = models.PositiveSmallIntegerField(choices=Cover.choices)
@@ -26,9 +27,9 @@ class Product(models.Model):
     language = models.CharField(verbose_name='ენა', max_length=100)
     height = models.FloatField('სიმაღლე', help_text='სმ', default=0)
     width = models.FloatField('სიგანე', help_text='სმ', default=0)
-    description = EditorJsTextField(verbose_name='აღწერა')
-    conditions = EditorJsTextField(verbose_name='აქციის პირობები')
-    image = models.ImageField(upload_to='images/')
+    description = EditorJsTextField(verbose_name='აღწერა', blank=True)
+    conditions = EditorJsTextField(verbose_name='აქციის პირობები', blank=True)
+    image = models.ImageField(upload_to='images/',)
 
     class Meta:
         verbose_name = 'Product'
@@ -40,7 +41,7 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(verbose_name='სახელი', max_length=255)
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.SET_NULL)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     alias = models.CharField(verbose_name='ალიასი', max_length=10)
 
     class Meta:

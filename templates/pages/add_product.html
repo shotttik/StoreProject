@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col s3"></div>
+			<div class="col s6">
+				{% if user.is_not_superuser %}
+					<div class="col-s12 pt-5">
+						<div class="alert alert-primary text-center" role="alert">
+							არ გაქვს ამის უფლება
+						</div>
+					</div>
+				{% else %}
+					<h1 class="text-center">პროდუქტის დამატება</h1>
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.name.id_for_label }}">სახელი</label>
+								{{ form.name }}
+								{% for error  in form.errors.name %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.category.id_for_label }}">კატეგორია</label>
+								{{ form.category }}
+								{% for error  in form.errors.category %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.price.id_for_label }}">ფასი</label>
+								{{ form.price }}
+								{% for error  in form.errors.price %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.discount.id_for_label }}">ფასდაკლება</label>
+								{{ form.discount }}
+								{% for error  in form.errors.discount %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.quantity.id_for_label }}">აქციების რაოდენობა</label>
+								{{ form.quantity }}
+								{% for error  in form.errors.quantity %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.delivery.id_for_label }}">მიტანის სერვისი</label>
+								{{ form.delivery }}
+								{% for error  in form.errors.delivery %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.isbn.id_for_label }}">ISBN კოდი</label>
+								{{ form.isbn }}
+								{% for error  in form.errors.isbn %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.cover.id_for_label }}">ქოვერი</label>
+								{{ form.cover }}
+								{% for error  in form.errors.cover %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.number_of_pages.id_for_label }}">გვერდების რაოდენობა</label>
+								{{ form.number_of_pages }}
+								{% for error  in form.errors.number_of_pages %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.language.id_for_label }}">ენა</label>
+								{{ form.language }}
+								{% for error  in form.errors.language %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.height.id_for_label }}">სიმაღლე</label>
+								{{ form.height }}
+								{% for error  in form.errors.height %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.width.id_for_label }}">სიგანე</label>
+								{{ form.width }}
+								{% for error  in form.errors.width %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						{#					<div class="row pt-3">#}
+						{#						<div class="col-md-12">#}
+						{#							<label for="{{ form.description.id_for_label }}">აღწერა</label>#}
+						{#							{{ form.description }}#}
+						{#							{% for error  in form.errors.description %}#}
+						{#								<p class="error">{{ error }}</p>#}
+						{#							{% endfor %}#}
+						{#						</div>#}
+						{#					</div>#}
+						{#					<div class="row pt-3">#}
+						{#						<div class="col-md-12">#}
+						{#							<label for="{{ form.conditions.id_for_label }}">პრიობები</label>#}
+						{#							{{ form.conditions }}#}
+						{#							{% for error  in form.errors.conditions %}#}
+						{#								<p class="error">{{ error }}</p>#}
+						{#							{% endfor %}#}
+						{#						</div>#}
+						{#					</div>#}
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.image.id_for_label }}">მთავარი სურათი</label>
+								{{ form.image }}
+								{% for error  in form.errors.image %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-5">
+							<div class="col s4"></div>
+							<div class="col s4">
+								<div class="column">
+									<button type="submit" class="btn btn-primary">დამატება</button>
+								</div>
+							</div>
+							<div class="col s4"></div>
+						</div>
+					</form>
+					</div>
+				{% endif %}
+			<div class="col s3"></div>
+		</div>
+	</div>
+	<style>
+        .error {
+            color: red;
+        }
+	</style>
+{% endblock %}

@@ -6,99 +6,99 @@
 			<div class="col s3"></div>
 			<div class="col s6">
 				{% if user.is_authenticated %}
-				<div class="col-s12 pt-5">
-				<div class="alert alert-primary text-center" role="alert">
-				  You are already logged in!
-				</div>
-				</div>
-			{% else %}
-				<h1 class="text-center">რეგისტრაცია</h1>
-				<form method="post">
-					{% csrf_token %}
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.email.id_for_label }}">ელ.ფოსტა</label>
-							{{ form.email }}
-							{% for error  in form.errors.email %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
+					<div class="col-s12 pt-5">
+						<div class="alert alert-primary text-center" role="alert">
+							You are already logged in!
 						</div>
 					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.password1.id_for_label }}">პაროლი</label>
-							{{ form.password1 }}
-							{% for error  in form.errors.password1 %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
+				{% else %}
+					<h1 class="text-center">რეგისტრაცია</h1>
+					<form method="post">
+						{% csrf_token %}
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.email.id_for_label }}">ელ.ფოსტა</label>
+								{{ form.email }}
+								{% for error  in form.errors.email %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
 						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.password1.id_for_label }}">პაროლი</label>
+								{{ form.password1 }}
+								{% for error  in form.errors.password1 %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.password2.id_for_label }}">გაიმეროეთ პაროლი</label>
+								{{ form.password2 }}
+								{% for error  in form.errors.password2 %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.first_name.id_for_label }}">სახელი</label>
+								{{ form.first_name }}
+								{% for error  in form.errors.first_name %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.last_name.id_for_label }}">გვარი</label>
+								{{ form.last_name }}
+								{% for error  in form.errors.last_name %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.personal_number.id_for_label }}">პირადი ნომერი</label>
+								{{ form.personal_number }}
+								{% for error  in form.errors.personal_number %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.mobile_phone.id_for_label }}">ტელეფონის ნომერი</label>
+								{{ form.mobile_phone }}
+								{% for error  in form.errors.mobile_phone %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col-md-12">
+								<label for="{{ form.location.id_for_label }}">ადგილმდებარეობა</label>
+								{{ form.location }}
+								{% for error  in form.errors.location %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row pt-5">
+							<div class="col s4"></div>
+							<div class="col s4">
+								<div class="column">
+									<button type="submit" class="btn btn-primary">რეგისტრაცია</button>
+								</div>
+							</div>
+							<div class="col s4"></div>
+						</div>
+					</form>
 					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.password2.id_for_label }}">გაიმეროეთ პაროლი</label>
-							{{ form.password2 }}
-							{% for error  in form.errors.password2 %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.first_name.id_for_label }}">სახელი</label>
-							{{ form.first_name }}
-							{% for error  in form.errors.first_name %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.last_name.id_for_label }}">გვარი</label>
-							{{ form.last_name }}
-							{% for error  in form.errors.last_name %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.personal_number.id_for_label }}">პირადი ნომერი</label>
-							{{ form.personal_number }}
-							{% for error  in form.errors.personal_number %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.mobile_phone.id_for_label }}">ტელეფონის ნომერი</label>
-							{{ form.mobile_phone }}
-							{% for error  in form.errors.mobile_phone %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-3">
-						<div class="col-md-12">
-							<label for="{{ form.location.id_for_label }}">ადგილმდებარეობა</label>
-							{{ form.location }}
-							{% for error  in form.errors.location %}
-								<p class="error">{{ error }}</p>
-							{% endfor %}
-						</div>
-					</div>
-					<div class="row pt-5">
-						<div class="col s4"></div>
-						<div class="col s4">
-							<div class="column">
-							<button type="submit" class="btn btn-primary">რეგისტრაცია</button>
-						</div>
-						</div>
-						<div class="col s4"></div>
-					</div>
-				</form>
-			</div>
-			{% endif %}
+				{% endif %}
 			<div class="col s3"></div>
 		</div>
 	</div>

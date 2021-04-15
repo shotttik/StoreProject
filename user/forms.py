@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 from user.location_choices import Location
 from user.models import User
+from user.validators import validate_personal_number
 
 
 class UserCreationForm(forms.ModelForm):
@@ -24,7 +25,7 @@ class UserCreationForm(forms.ModelForm):
                                 help_text='Please repeat password')
     first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    personal_number = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    personal_number = forms.CharField(required=True, validators=[validate_personal_number], widget=forms.TextInput(attrs={'class': 'form-control'}))
     mobile_phone = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     location = forms.ChoiceField(choices=Location.choices)
 

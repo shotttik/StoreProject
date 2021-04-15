@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="card" style="width: 18rem;">
+					<img src="{{ product.image.url }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">{{ product.name }} - მარაგშია {{ product.quantity }}</h5>
+						<p class="card-text" style="color: saddlebrown">ენა - {{ product.language }}</p>
+						<p class="card-text" style="color: darkgrey">{{ product.category }}</p>
+						<p class="card-text" style="color: green">{{ product.price }} ლ</p>
+						{% if product.discount > 0 %}
+							<p class="card-text" style="color: green">ფასდაკლება - {{ product.discount }} ლ</p>
+							<p class="card-text">დანაზოგი - {{ product.savings }} %</p>
+							<p class="card-text">აქციის დასრულების თარიღი - {{ product.end_date }}</p>
+						{% endif %}
+					</div>
+					<ul class="list-group list-group-flush">
+						{% if product.delivery != True %}
+							<li class="list-group-item" style="color: darkgreen">მიწოდების სერვისი</li>
+						{% endif %}
+						<li class="list-group-item">ISBN კოდი - {{ product.isbn }}</li>
+						<li class="list-group-item">გარეკანი - {{ product.cover }}</li>
+						<li class="list-group-item">გვერდების რაოდენობა - {{ product.number_of_pages }}</li>
+					</ul>
+					<div class="card-body">
+						<a class="card-link">სიმაღლე - {{ product.height }}სმ</a>
+						<br/>
+						<a class="card-link">სიგანე - {{ product.width }}სმ</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-5">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">პროდუქტის აღწერა</h5>
+						{{ product.description }}
+					</div>
+				</div>
+				{% if product.discount > 0 %}
+					<div class="col-md-5">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">აქციის პირობები</h5>
+								{{ product.description }}
+							</div>
+						</div>
+					</div>
+					</div>
+				{% endif %}
+			<br/>
+			<a href="{% url 'buy_product' product.pk %}" type="submit" class="btn btn-primary  btn-lg">ყიდვა</a>
+			<div class="col-md-3"></div>
+
+		</div>
+	</div>
+{% endblock %}

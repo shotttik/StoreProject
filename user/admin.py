@@ -12,7 +12,7 @@ class UserAdmin(UserAdmin):
     change_user_password_template = None
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'personal_number')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'personal_number', 'balance')}),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
@@ -21,8 +21,8 @@ class UserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'balance', 'mobile_phone', 'member_status',
-                       'location', 'address', 'balance' ),
+            'fields': ('email', 'password1', 'password2', 'balance', 'mobile_phone', 'personal_number', 'member_status',
+                       'location', 'address'),
         }),
     )
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
