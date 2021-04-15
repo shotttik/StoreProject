@@ -1,0 +1,3 @@
+certifi==2020.12.5
+django-editorjs-fields==0.2.0
+Pillow==8.2.0
