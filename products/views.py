@@ -1,3 +1,7 @@
+import datetime
+
+import xlwt
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
@@ -58,3 +62,28 @@ def buy_product(request, pk):
         return render(request, 'pages/buy_product.html', {'error': 'პროდუქტი არ არის მარაგში'})
     return render(request, 'pages/buy_product.html', {'product': product,
                                                       'product_price': product_price})
+
+
+def export_excel(request, pk):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = f'attachment; filename=Product-{pk}-' + str(datetime.datetime.now()) + '.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Product')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['ID', 'აქციის დასახელება', 'მიმდინარე ფასი', 'ფასდაკლების პროცენტი', 'დარჩენილი რაოდენობა',
+               'აქციის დასრულების თარიღი', 'ქეშბექი']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    font_style = xlwt.XFStyle()
+    row_num += 1
+    product = Product.objects.get(pk=pk)
+    columns = [product.pk, product.name, product.price, product.discount, product.quantity,
+               product.end_date.isoformat(), product.cashback]
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    wb.save(response)
+    return response

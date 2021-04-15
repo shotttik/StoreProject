@@ -49,10 +49,23 @@
 							</div>
 						</div>
 					</div>
-					</div>
+
 				{% endif %}
+				<br/>
+				<div class="row">
+					<div class="col m6 s12">
+						<a href="{% url 'buy_product' product.pk %}" type="submit"
+						   class="btn btn-primary  btn-lg">ყიდვა</a>
+					</div>
+					<div class="col m6 s12">
+						<a href="{% url 'export_excel' product.pk %}" type="submit" class="btn btn-secondary  btn-lg">გადმოწერე</a>
+
+					</div>
+				</div>
+
+			</div>
 			<br/>
-			<a href="{% url 'buy_product' product.pk %}" type="submit" class="btn btn-primary  btn-lg">ყიდვა</a>
+
 			<div class="col-md-3"></div>
 
 		</div>
