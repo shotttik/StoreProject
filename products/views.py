@@ -1,9 +1,10 @@
 import datetime
 
 import xlwt
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
 
 from products.forms import ProductForm
 from products.models import Product
@@ -12,13 +13,13 @@ from user.models import User
 
 def home(request):
     if 'only_discount' in request.GET:
-        products = Product.objects.filter(end_date__gt=timezone.now())
+        products = Product.objects.filter(end_date__gt=datetime.date.today())
         return render(request, 'pages/home.html', {'products': products})
     if 'show_all' in request.GET:
         products = Product.objects.filter()
         return render(request, 'pages/home.html', {'products': products})
     if 'without_discount' in request.GET:
-        products = Product.objects.filter(end_date__lt=timezone.now())
+        products = Product.objects.filter(end_date__lt=datetime.date.today())
         for product in products:
             if product.discount != 0:
                 product.discount = 0
@@ -28,13 +29,14 @@ def home(request):
     return render(request, 'pages/home.html', {'products': products})
 
 
+@login_required(login_url="/user/login")
 def add_product(request):
     product_form = ProductForm()
     if request.method == 'POST':
         product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
-            product_form.savings = request.POST['discount'] / request.POST['price'] * 100
             product: Product = product_form.save(commit=False)
+            product.savings = product.discount / product.price * 100
             product.save()
             return redirect('home')
     return render(request, 'pages/add_product.html', {'form': product_form})
@@ -46,6 +48,7 @@ def product_detailed(request, pk):
     return render(request, 'pages/product_detailed.html', {'product': product})
 
 
+@login_required(login_url="/user/login")
 def buy_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
     product_price = product.price - product.discount
@@ -57,6 +60,11 @@ def buy_product(request, pk):
             if user.balance >= product_price:
                 user.balance -= product_price
                 user.save()
+                send_mail(subject='message for test',
+                          message='some lorem ipsum',
+                          from_email='test@palitra.ge',
+                          recipient_list=[user.email],
+                          fail_silently=False)
                 return redirect('home')
             return render(request, 'pages/buy_product.html', {'error': 'საკმარისი თანხა არ გაქვთ ანგარიშზე'})
         return render(request, 'pages/buy_product.html', {'error': 'პროდუქტი არ არის მარაგში'})

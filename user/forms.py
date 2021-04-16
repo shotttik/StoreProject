@@ -25,7 +25,8 @@ class UserCreationForm(forms.ModelForm):
                                 help_text='Please repeat password')
     first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    personal_number = forms.CharField(required=True, validators=[validate_personal_number], widget=forms.TextInput(attrs={'class': 'form-control'}))
+    personal_number = forms.CharField(required=True, validators=[validate_personal_number],
+                                      widget=forms.TextInput(attrs={'class': 'form-control'}))
     mobile_phone = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     location = forms.ChoiceField(choices=Location.choices)
 
@@ -39,6 +40,7 @@ class UserCreationForm(forms.ModelForm):
             'last_name',
             'mobile_phone',
             'location',
+            'personal_number'
         )
 
     def clean_password2(self):

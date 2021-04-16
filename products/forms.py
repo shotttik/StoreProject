@@ -23,7 +23,6 @@ class ProductForm(forms.ModelForm):
             'category',
             'price',
             'discount',
-            'savings',
             'quantity',
             'delivery',
             'isbn',
@@ -32,6 +31,5 @@ class ProductForm(forms.ModelForm):
             'language',
             'height',
             'width',
-            'description',
-            'conditions'
+            'image'
         )
